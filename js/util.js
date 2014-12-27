@@ -34,3 +34,15 @@ function get_ec2_price(success){
     });
   });
 }
+
+function get_ec2_ri_price(success){
+  var url = "https://a0.awsstatic.com/pricing/1/ec2/ri-v2/linux-unix-shared.min.js";
+  var ec2_ri_price = {};
+
+  _jsonp_get(url, function(data){
+    $.each(data.config.regions, function(){
+      ec2_ri_price[this.region] = this.instanceTypes;
+    });
+    success(ec2_ri_price);
+  });
+}

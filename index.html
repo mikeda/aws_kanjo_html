@@ -19,7 +19,7 @@
 
     <div class="container">
       <div>
-        円相場: <span class="yen-rate"></span>
+        <p>円相場 : <span class="yen-rate"></span></p>
       </div>
 
       <div class="row margin-top-10">
@@ -52,13 +52,21 @@
       <div class="margin-top-10">
 
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#ed2-price-list-tab" data-toggle="tab">一覧</a></li>
+          <li class="active"><a href="#ed2-price-list-tab" data-toggle="tab">価格一覧</a></li>
+          <li><a href="#ed2-ri-price-list-tab" data-toggle="tab">RI詳細</a></li>
           <li><a href="#ed2-price-csv-tab" data-toggle="tab">CSV</a></li>
         </ul>
 
         <div class="tab-content">
           <div id="ed2-price-list-tab" class="tab-pane active">
+            <p class="margin-top-10">※RI月額の実質月額の最安値を記載しています。要するにallUpfront(全て前払い)の場合です。</p>
             <div id="ec2-price-list">
+            </div>
+          </div>
+
+          <div id="ed2-ri-price-list-tab" class="tab-pane active">
+            <p class="margin-top-10">※実質月額のズレは簡略化のため1ヶ月を30日としているからです。</p>
+            <div id="ec2-ri-price-list">
             </div>
           </div>
 
