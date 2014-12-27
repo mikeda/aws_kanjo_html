@@ -49,7 +49,16 @@
         </div>
       </div>
 
-      <div class="margin-top-10">
+      <div class="btn-group margin-top-10" role="group">
+        <div class="btn-group" role="group">
+          <button id="ec2-button" type="button" class="btn btn-default">EC2</button>
+        </div>
+        <div class="btn-group" role="group">
+          <button id="rds-button" type="button" class="btn btn-default">RDS</button>
+        </div>
+      </div>
+
+      <div id="ec2-content" class="margin-top-10">
 
         <ul class="nav nav-tabs">
           <li class="active"><a href="#ed2-price-list-tab" data-toggle="tab">価格一覧</a></li>
@@ -75,6 +84,21 @@
           </div>
         </div>
       </div>
+
+      <div id="rds-content" class="margin-top-10" style="display:none">
+
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#rds-price-list-tab" data-toggle="tab">価格一覧</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="rds-price-list-tab" class="tab-pane active">
+            <div id="rds-price-list">
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </body>
