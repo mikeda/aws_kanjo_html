@@ -21,9 +21,9 @@ function _jsonp_get(url, success){
 }
 
 function get_yen_rate(callback){
-  var url = "https://rate-exchange.appspot.com/currency?from=usd&to=jpy";
+  var url = "http://api.fixer.io/latest?base=USD&symbols=JPY&callback=callback";
   _jsonp_get(url, function(data){
-    callback(data.rate);
+    callback(data.rates.JPY);
   });
 }
 
