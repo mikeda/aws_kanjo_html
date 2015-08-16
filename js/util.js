@@ -21,7 +21,7 @@ function _jsonp_get(url, success){
 }
 
 function get_yen_rate(callback){
-  var url = "http://api.fixer.io/latest?base=USD&symbols=JPY&callback=callback";
+  var url = "https://api.fixer.io/latest?base=USD&symbols=JPY&callback=callback";
   _jsonp_get(url, function(data){
     callback(data.rates.JPY);
   });
@@ -48,14 +48,21 @@ function get_ec2_price(success){
 }
 
 function get_ec2_ri_price(success){
-  var url = "https://a0.awsstatic.com/pricing/1/ec2/ri-v2/linux-unix-shared.min.js";
+  var current_url = "https://a0.awsstatic.com/pricing/1/ec2/ri-v2/linux-unix-shared.min.js";
+  var previous_url = "https://a0.awsstatic.com/pricing/1/ec2/previous-generation/ri-v2/linux-unix-shared.min.js";
   var ec2_ri_price = {};
 
-  _jsonp_get(url, function(data){
-    $.each(data.config.regions, function(){
+  _jsonp_get(current_url, function(current_data){
+    $.each(current_data.config.regions, function(){
       ec2_ri_price[this.region] = this.instanceTypes;
     });
-    success(ec2_ri_price);
+    _jsonp_get(previous_url, function(previous_data){
+      $.each(previous_data.config.regions, function(){
+        ec2_ri_price[this.region] = ec2_ri_price[this.region].concat(this.instanceTypes);
+      });
+
+      success(ec2_ri_price);
+    });
   });
 }
 
