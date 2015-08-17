@@ -180,12 +180,6 @@ $(function(){
     });
   }
 
-  $("#calculate-price").click(function(){
-    var usd = parseFloat($("#price-usd").val());
-    var yen_per_month = Math.ceil(usd * yen_rate * 24 * 365 / 12);
-    $("#price-yen").val(yen_per_month);
-  });
-
   $.each(regions, function(){
     $("#region-list").append('<li><a href="#">' + this + '</a></li>');
   });
