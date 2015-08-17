@@ -112,7 +112,7 @@ $(function(){
     $("#ec2-price-csv").empty();
 
     var lines = [
-      "サイズ,ECU,CPUコア数,メモリ,ストレージ,料金/時間,月額,月額(1年RI最安),月額(3年RI最安)"
+      "サイズ,CPUコア数,ECU,メモリ,ストレージ,料金/時間,月額,月額(1年RI最安),月額(3年RI最安)"
     ];
     $.each(ec2_price[region], function(i, instanceType){
       $.each(instanceType.sizes, function(i, size){
