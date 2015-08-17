@@ -32,17 +32,17 @@ $(function(){
         .append('<th class="text-right">ストレージ</th>')
         .append('<th class="text-right">料金 /時間</th>')
         .append('<th class="text-right">月額</th>')
-        .append('<th class="text-right">月額(1年RI最安)</th>')
-        .append('<th class="text-right">月額(3年RI最安)</th>');
+        .append('<th class="text-right">月額(1年RI)</th>')
+        .append('<th class="text-right">月額(3年RI)</th>');
       table.append($('<thead>').append(th));
       var tbody = $('<tbody>');
       $.each(instanceType.sizes, function(i, size){
         var usd = parseFloat(size.valueColumns[0].prices.USD);
         var yen = (usd * yen_rate).toFixed(2);
-        var yen_per_month = Math.ceil(usd * yen_rate * 24 * 30);
+        var yen_per_month = Math.ceil(usd * yen_rate * 24 * 365 / 12);
         if(ec2_ri_min_price && ec2_ri_min_price[region][size.size]){
-          var yen_per_month_ri1 = Math.ceil(ec2_ri_min_price[region][size.size]["yrTerm1"] * yen_rate * 24 * 30);
-          var yen_per_month_ri3 = Math.ceil(ec2_ri_min_price[region][size.size]["yrTerm3"] * yen_rate * 24 * 30);
+          var yen_per_month_ri1 = Math.ceil(ec2_ri_min_price[region][size.size]["yrTerm1"] * yen_rate * 24 * 365 / 12);
+          var yen_per_month_ri3 = Math.ceil(ec2_ri_min_price[region][size.size]["yrTerm3"] * yen_rate * 24 * 365 / 12);
         }
         var td = $('<tr>')
           .append('<th ">' + size.size + '</th>')
@@ -86,7 +86,7 @@ $(function(){
           });
           var upfront = Math.ceil(usd[0]).toLocaleString();
           var monthlyStar = Math.ceil(usd[1]).toLocaleString();
-          var effectiveMonthly = Math.ceil(usd[2] * 24 * 30).toLocaleString();
+          var effectiveMonthly = Math.ceil(usd[2] * 24 * 365 / 12).toLocaleString();
           var td = $('<tr>');
           if(index == 0){
             var rowspan = term.term == 'yrTerm1' ? 3 : 2;
@@ -112,16 +112,16 @@ $(function(){
     $("#ec2-price-csv").empty();
 
     var lines = [
-      "サイズ,CPUコア数,ECU,メモリ,ストレージ,料金/時間,月額,月額(1年RI最安),月額(3年RI最安)"
+      "サイズ,CPUコア数,ECU,メモリ,ストレージ,料金/時間,月額,月額(1年RI),月額(3年RI)"
     ];
     $.each(ec2_price[region], function(i, instanceType){
       $.each(instanceType.sizes, function(i, size){
         var usd = parseFloat(size.valueColumns[0].prices.USD);
         var yen = (usd * yen_rate).toFixed(2);
-        var yen_per_month = Math.ceil(usd * yen_rate * 24 * 30)
+        var yen_per_month = Math.ceil(usd * yen_rate * 24 * 365 / 12)
         if(ec2_ri_min_price[region][size.size]){
-          var yen_per_month_ri1 = Math.ceil(ec2_ri_min_price[region][size.size]["yrTerm1"] * yen_rate * 24 * 30);
-          var yen_per_month_ri3 = Math.ceil(ec2_ri_min_price[region][size.size]["yrTerm3"] * yen_rate * 24 * 30);
+          var yen_per_month_ri1 = Math.ceil(ec2_ri_min_price[region][size.size]["yrTerm1"] * yen_rate * 24 * 365 / 12);
+          var yen_per_month_ri3 = Math.ceil(ec2_ri_min_price[region][size.size]["yrTerm3"] * yen_rate * 24 * 365 / 12);
         }
         lines.push( [
           size.size,
@@ -154,7 +154,7 @@ $(function(){
       $.each(type.tiers, function(i, tier){
         var usd = parseFloat(tier.prices.USD);
         var yen = (usd * yen_rate).toFixed(2);
-        var yen_per_month = Math.ceil(usd * yen_rate * 24 * 30);
+        var yen_per_month = Math.ceil(usd * yen_rate * 24 * 365 / 12 );
         var td = $('<tr>')
           .append('<th ">' + tier.name + '</th>')
           .append('<td align="right">¥' + yen.toLocaleString() + '</td>')
@@ -182,7 +182,7 @@ $(function(){
 
   $("#calculate-price").click(function(){
     var usd = parseFloat($("#price-usd").val());
-    var yen_per_month = Math.ceil(usd * yen_rate * 24 * 30);
+    var yen_per_month = Math.ceil(usd * yen_rate * 24 * 365 / 12);
     $("#price-yen").val(yen_per_month);
   });
 
