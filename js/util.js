@@ -1,15 +1,3 @@
-var rds_regions = {
-  "us-east": "us-east-1",
-  "us-west": "us-west-1",
-  "us-west-2": "us-west-2",
-  "eu-ireland": "eu-west-1",
-  "eu-central-1": "eu-central-1",
-  "apac-tokyo": "ap-northeast-1",
-  "apac-sin": "ap-southeast-1",
-  "apac-syd": "ap-southeast-2",
-  "sa-east-1": "sa-east-1"
-};
-
 function _jsonp_get(url, success){
   $.ajax({
     type: "GET",
@@ -73,12 +61,12 @@ function get_rds_price(success){
 
   _jsonp_get(current_url, function(current_data){
     $.each(current_data.config.regions, function(){
-      rds_price[rds_regions[this.region]] = this.types;
+      rds_price[this.region] = this.types;
     });
 
     _jsonp_get(previous_url, function(previous_data){
       $.each(previous_data.config.regions, function(){
-        rds_price[rds_regions[this.region]] = rds_price[rds_regions[this.region]].concat(this.types);
+        rds_price[this.region] = rds_price[this.region].concat(this.types);
       });
 
       success(rds_price);
